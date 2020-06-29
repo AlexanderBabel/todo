@@ -1,3 +1,5 @@
+import { firestore } from 'firebase-admin';
+
 export interface Todo {
   id: number;
   name: string;
@@ -14,4 +16,11 @@ export interface FirebaseTodo {
   name: string;
   completed: boolean;
   dueDate?: Date;
+}
+
+export interface FirebaseDatabaseTodo {
+  id: string;
+  name: string;
+  completed: boolean;
+  dueDate?: firestore.Timestamp;
 }

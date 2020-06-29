@@ -1,17 +1,17 @@
 import { FirebaseTodo } from '../../types/todo';
 import { Request, Response } from 'express';
-import { addTodo } from '../../helper/firebase';
+import { updateTodo } from '../../helper/firebase';
 import dayjs from 'dayjs';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async (req: Request<any, unknown, FirebaseTodo>, res: Response): Promise<void> => {
   const todo = req.body;
-  if (!todo.name) {
-    res.status(400).send('Name is missing.');
+  if (!todo.id) {
+    res.status(400).send('ID is missing.');
     return;
   }
 
-  if (typeof todo.name !== 'string') {
+  if (todo.name && typeof todo.name !== 'string') {
     res.status(400).send('name must be a string.');
     return;
   }
@@ -21,9 +21,14 @@ export default async (req: Request<any, unknown, FirebaseTodo>, res: Response): 
     return;
   }
 
-  const dbRes = await addTodo(todo.name, todo.dueDate);
+  if (todo.completed && typeof todo.completed !== 'boolean') {
+    res.status(400).send('completed must be a boolean.');
+    return;
+  }
+
+  const dbRes = await updateTodo(todo.id, todo.name, todo.dueDate, todo.completed);
   if (dbRes) {
-    res.send(dbRes);
+    res.send('Ok');
     return;
   }
 
