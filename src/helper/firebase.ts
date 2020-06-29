@@ -28,8 +28,13 @@ export async function deleteTodo(id: string): Promise<boolean> {
 
 export async function getTodos(): Promise<FirebaseTodo[]> {
   return Promise.all(
-    (await collection.get()).docs.map(
-      async (d) => ({ id: d.id, ...(await d.data()) } as FirebaseTodo)
-    )
+    (await collection.get()).docs.map(async (d) => {
+      const data = await d.data();
+      return {
+        id: d.id,
+        ...data,
+        dueDate: data.dueDate ? (data.dueDate as admin.firestore.Timestamp).toDate() : null,
+      } as FirebaseTodo;
+    })
   );
 }
