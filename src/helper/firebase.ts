@@ -19,3 +19,11 @@ export async function addTodo(name: string, dueDate?: Date): Promise<FirebaseTod
     dueDate,
   };
 }
+
+export async function getTodos(): Promise<FirebaseTodo[]> {
+  return Promise.all(
+    (await collection.get()).docs.map(
+      async (d) => ({ id: d.id, ...(await d.data()) } as FirebaseTodo)
+    )
+  );
+}

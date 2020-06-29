@@ -10,6 +10,7 @@ import deleteTodo from './routes/deleteTodo';
 import getTodos from './routes/getTodos';
 import updateTodo from './routes/updateTodo';
 import createFirebaseTodo from './routes/firebase/createFirebaseTodo';
+import getFirebaseTodos from './routes/firebase/getFirebaseTodos';
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.post('/todo', createTodo);
 app.patch('/todo', updateTodo);
 app.delete('/todo', deleteTodo);
 
+app.get('/firebase/todo', getFirebaseTodos);
 app.post('/firebase/todo', createFirebaseTodo);
 
 app.listen(process.env.PORT ?? 4000, () => {
