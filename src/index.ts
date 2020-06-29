@@ -10,6 +10,7 @@ import deleteTodo from './routes/deleteTodo';
 import getTodos from './routes/getTodos';
 import updateTodo from './routes/updateTodo';
 import createFirebaseTodo from './routes/firebase/createFirebaseTodo';
+import deleteFirebaseTodo from './routes/firebase/deleteFirebaseTodo';
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.patch('/todo', updateTodo);
 app.delete('/todo', deleteTodo);
 
 app.post('/firebase/todo', createFirebaseTodo);
+app.delete('/firebase/todo', deleteFirebaseTodo);
 
 app.listen(process.env.PORT ?? 4000, () => {
   console.log(`Started server on port ${process.env.PORT ?? 4000}`);

@@ -4,6 +4,7 @@ import { FirebaseTodo } from '../types/todo';
 admin.initializeApp();
 const { fromDate } = admin.firestore.Timestamp;
 export const collection = admin.firestore().collection('todos');
+export const firestore = admin.firestore();
 
 export async function addTodo(name: string, dueDate?: Date): Promise<FirebaseTodo> {
   const data = {
@@ -18,4 +19,10 @@ export async function addTodo(name: string, dueDate?: Date): Promise<FirebaseTod
     id: res.id,
     dueDate,
   };
+}
+
+export async function deleteTodo(id: string): Promise<boolean> {
+  const doc = firestore.doc(`todos/${id}`);
+
+  return await doc.delete().then(() => true);
 }
