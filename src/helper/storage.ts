@@ -54,3 +54,13 @@ export function updateTodo(
 
   return true;
 }
+
+export function deleteTodo(id: number): boolean {
+  const todoIndex = todos.findIndex((t) => t.id === id);
+  if (todoIndex === -1) {
+    return false;
+  }
+
+  todos.splice(todoIndex, 1);
+  return true;
+}

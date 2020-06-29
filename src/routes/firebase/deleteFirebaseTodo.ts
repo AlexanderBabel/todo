@@ -16,5 +16,5 @@ export default async (req: Request<any, unknown, FirebaseTodo>, res: Response): 
     return;
   }
 
-  res.status(500).send('Something went wrong during the saving process.');
+  res.status(500).send('Could not find object.');
 };
