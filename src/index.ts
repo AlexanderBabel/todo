@@ -9,6 +9,7 @@ import createTodo from './routes/createTodo';
 import deleteTodo from './routes/deleteTodo';
 import getTodos from './routes/getTodos';
 import updateTodo from './routes/updateTodo';
+import createFirebaseTodo from './routes/firebase/createFirebaseTodo';
 
 const app = express();
 
@@ -19,10 +20,12 @@ app.use(bodyParser.json());
 app.use(authentication);
 
 // routes
-app.get('todo', getTodos);
-app.post('todo', createTodo);
-app.patch('todo', updateTodo);
-app.delete('todo', deleteTodo);
+app.get('/todo', getTodos);
+app.post('/todo', createTodo);
+app.patch('/todo', updateTodo);
+app.delete('/todo', deleteTodo);
+
+app.post('/firebase/todo', createFirebaseTodo);
 
 app.listen(process.env.PORT ?? 4000, () => {
   console.log(`Started server on port ${process.env.PORT ?? 4000}`);

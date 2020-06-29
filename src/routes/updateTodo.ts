@@ -1,9 +1,10 @@
-import Todo from '../types/todo';
+import { Todo } from '../types/todo';
 import { Request, Response } from 'express';
 import { addTodo } from '../helper/storage';
 
 // TODO: implementation
-export default (req: Request<unknown, unknown, Todo>, res: Response): void => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default (req: Request<any, unknown, Todo>, res: Response): void => {
   const todo = req.body;
   if (!todo.name) {
     res.status(400).send('Name is missing.');

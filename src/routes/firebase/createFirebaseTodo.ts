@@ -1,17 +1,16 @@
-import { Todo } from '../types/todo';
+import { FirebaseTodo } from '../../types/todo';
 import { Request, Response } from 'express';
-import { addTodo } from '../helper/storage';
+import { addTodo } from '../../helper/firebase';
 
-// TODO: implementation
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default (req: Request<any, unknown, Todo>, res: Response): void => {
+export default (req: Request<any, unknown, FirebaseTodo>, res: Response): void => {
   const todo = req.body;
   if (!todo.name) {
     res.status(400).send('Name is missing.');
     return;
   }
 
-  const dbRes = addTodo(todo.name, todo.dueDate ?? undefined);
+  const dbRes = addTodo(todo.name, todo.dueDate);
   if (dbRes) {
     res.send('Ok');
     return;

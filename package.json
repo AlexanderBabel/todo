@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "eslint": "eslint .",
-    "build": "rm -rf dist && tsc"
+    "build": "rm -rf dist && tsc",
+    "start": "yarn build && node dist/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +17,7 @@
     "dayjs": "^1.8.28",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "firebase-admin": "^8.13.0",
     "helmet": "^3.23.3",
     "jsonwebtoken": "^8.5.1"
   },
