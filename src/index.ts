@@ -11,6 +11,7 @@ import getTodos from './routes/getTodos';
 import updateTodo from './routes/updateTodo';
 import createFirebaseTodo from './routes/firebase/createFirebaseTodo';
 import deleteFirebaseTodo from './routes/firebase/deleteFirebaseTodo';
+import getFirebaseTodos from './routes/firebase/getFirebaseTodos';
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.post('/todo', createTodo);
 app.patch('/todo', updateTodo);
 app.delete('/todo', deleteTodo);
 
+app.get('/firebase/todo', getFirebaseTodos);
 app.post('/firebase/todo', createFirebaseTodo);
 app.delete('/firebase/todo', deleteFirebaseTodo);
 

@@ -27,3 +27,30 @@ export function addTodo(name: string, dueDate: Date): boolean {
 
   return true;
 }
+
+export function getTodos(): [Todo] {
+  return todos;
+}
+
+export function updateTodo(
+  id: number,
+  name?: string,
+  dueDate?: Date,
+  completed?: boolean
+): boolean {
+  const todoIndex = todos.findIndex((t) => t.id === id);
+  if (todoIndex === -1) {
+    return false;
+  }
+
+  const todo = todos[todoIndex];
+  todos[todoIndex] = {
+    ...todo,
+    name: name ?? todo.name,
+    dueDate: dueDate ?? todo.dueDate,
+    completed: completed ?? todo.completed,
+    updatedAt: new Date(),
+  };
+
+  return true;
+}

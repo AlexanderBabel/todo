@@ -26,3 +26,11 @@ export async function deleteTodo(id: string): Promise<boolean> {
 
   return await doc.delete().then(() => true);
 }
+
+export async function getTodos(): Promise<FirebaseTodo[]> {
+  return Promise.all(
+    (await collection.get()).docs.map(
+      async (d) => ({ id: d.id, ...(await d.data()) } as FirebaseTodo)
+    )
+  );
+}
