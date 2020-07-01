@@ -2,6 +2,7 @@ import { FirebaseTodo } from '../../types/todo';
 import { Request, Response } from 'express';
 import { updateTodo } from '../../helper/firebase';
 import dayjs from 'dayjs';
+import { RequestParamsId } from '../../types/requestParamsId';
 
 /**
  * @typedef FirebaseUpdateTodo
@@ -13,7 +14,7 @@ import dayjs from 'dayjs';
 
 /**
  * This route allows you to update a existing Todo.
- * @route PATCH /firebase/todo
+ * @route PATCH /firebase/todo/:id
  * @param {FirebaseUpdateTodo.model} todo.body.required - The Todo that should be updated
  * @group firebase - Save Todos in Firestore database from Google's Firebase
  * @returns {string} 200 - Ok
@@ -24,12 +25,12 @@ import dayjs from 'dayjs';
  * @returns {Error}  500 - Something went wrong during the saving process.
  * @security JWT
  */
-export default async (req: Request<never, unknown, FirebaseTodo>, res: Response): Promise<void> => {
+export default async (
+  req: Request<RequestParamsId, unknown, FirebaseTodo>,
+  res: Response
+): Promise<void> => {
+  const id = req.params.id;
   const todo = req.body;
-  if (!todo.id) {
-    res.status(400).send('ID is missing.');
-    return;
-  }
 
   if (todo.name && typeof todo.name !== 'string') {
     res.status(400).send('Name must be a string.');
@@ -46,9 +47,9 @@ export default async (req: Request<never, unknown, FirebaseTodo>, res: Response)
     return;
   }
 
-  const dbRes = await updateTodo(todo.id, todo.name, todo.dueDate, todo.completed);
+  const dbRes = await updateTodo(id, todo.name, todo.dueDate, todo.completed);
   if (dbRes) {
-    res.send('Ok');
+    res.send(dbRes);
     return;
   }
 

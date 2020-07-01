@@ -14,7 +14,7 @@ import dayjs from 'dayjs';
  * @route POST /todo
  * @param {CreateTodo.model} todo.body.required - The Todo that should be saved.
  * @group local - Save Todos in memory of the server. A reset will happen after each restart of the server!
- * @returns {string} 200 - Ok
+ * @returns {Todo} 200 - Returns the new Todo
  * @returns {Error}  400 - Name is missing.
  * @returns {Error}  400 - Name must be a string.
  * @returns {Error}  400 - Invalid dueDate.
@@ -40,7 +40,7 @@ export default (req: Request<never, unknown, Todo>, res: Response): void => {
 
   const dbRes = addTodo(todo.name, todo.dueDate);
   if (dbRes) {
-    res.send('Ok');
+    res.send(dbRes);
     return;
   }
 

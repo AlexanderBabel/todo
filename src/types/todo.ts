@@ -1,7 +1,7 @@
 import { firestore } from 'firebase-admin';
 
 export interface Todo {
-  id: number;
+  id: string;
   name: string;
   completed: boolean;
   dueDate: Date;

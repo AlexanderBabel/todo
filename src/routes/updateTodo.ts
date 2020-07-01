@@ -2,6 +2,7 @@ import { Todo } from '../types/todo';
 import { Request, Response } from 'express';
 import { updateTodo } from '../helper/storage';
 import dayjs from 'dayjs';
+import { RequestParamsId } from '../types/requestParamsId';
 
 /**
  * @typedef UpdateTodo
@@ -16,7 +17,7 @@ import dayjs from 'dayjs';
  * @route PATCH /todo
  * @param {UpdateTodo.model} todo.body.required - The Todo that should be updated
  * @group local - Save Todos in memory of the server. A reset will happen after each restart of the server!
- * @returns {string} 200 - Ok
+ * @returns {Todo} 200 - Ok
  * @returns {Error}  400 - ID is missing.
  * @returns {Error}  400 - Name must be a string.
  * @returns {Error}  400 - Invalid dueDate.
@@ -24,12 +25,9 @@ import dayjs from 'dayjs';
  * @returns {Error}  500 - Something went wrong during the saving process.
  * @security JWT
  */
-export default (req: Request<never, unknown, Todo>, res: Response): void => {
+export default (req: Request<RequestParamsId, unknown, Todo>, res: Response): void => {
   const todo = req.body;
-  if (!todo.id) {
-    res.status(400).send('ID is missing.');
-    return;
-  }
+  const id = req.params.id;
 
   if (todo.name && typeof todo.name !== 'string') {
     res.status(400).send('name must be a string.');
@@ -46,9 +44,9 @@ export default (req: Request<never, unknown, Todo>, res: Response): void => {
     return;
   }
 
-  const dbRes = updateTodo(todo.id, todo.name, todo.dueDate, todo.completed);
+  const dbRes = updateTodo(id, todo.name, todo.dueDate, todo.completed);
   if (dbRes) {
-    res.send('Ok');
+    res.send(dbRes);
     return;
   }
 

@@ -16,6 +16,8 @@ import createFirebaseTodo from './routes/firebase/createFirebaseTodo';
 import deleteFirebaseTodo from './routes/firebase/deleteFirebaseTodo';
 import getFirebaseTodos from './routes/firebase/getFirebaseTodos';
 import updateFirebaseTodo from './routes/firebase/updateFirebaseTodo';
+import getTodo from './routes/getTodo';
+import getFirebaseTodo from './routes/firebase/getFirebaseTodo';
 
 const app = express();
 const expressSwagger = expressSwaggerGenerator(app);
@@ -28,19 +30,22 @@ app.use(authentication);
 
 // routes
 app.get('/todo', getTodos);
+app.get('/todo/:id', getTodo);
 app.post('/todo', createTodo);
-app.patch('/todo', updateTodo);
-app.delete('/todo', deleteTodo);
+app.patch('/todo/:id', updateTodo);
+app.delete('/todo/:id', deleteTodo);
 
 app.get('/firebase/todo', getFirebaseTodos);
+app.get('/firebase/todo/:id', getFirebaseTodo);
 app.post('/firebase/todo', createFirebaseTodo);
-app.patch('/firebase/todo', updateFirebaseTodo);
-app.delete('/firebase/todo', deleteFirebaseTodo);
+app.patch('/firebase/todo/:id', updateFirebaseTodo);
+app.delete('/firebase/todo/:id', deleteFirebaseTodo);
 
 const options = {
   swaggerDefinition: {
     info: {
-      description: 'Service Engineering Express Backend. This is a simple API which can manage Todos.',
+      description:
+        'Service Engineering Express Backend. This is a simple API which can manage Todos.',
       title: 'SEEB',
       version: '1.0.0',
     },

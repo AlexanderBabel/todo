@@ -3,7 +3,7 @@ import { Todo } from '../types/todo';
 
 const todos: [Todo] = [
   {
-    id: 0,
+    id: '0',
     name: 'SE Komplexübung 1',
     completed: false,
     dueDate: dayjs('01.08.2020').toDate(),
@@ -14,9 +14,9 @@ const todos: [Todo] = [
 ];
 let lastId = todos.length;
 
-export function addTodo(name: string, dueDate: Date): boolean {
-  todos.push({
-    id: lastId++,
+export function addTodo(name: string, dueDate: Date): Todo {
+  const length: number = todos.push({
+    id: `${lastId++}`,
     name,
     dueDate,
     completed: false,
@@ -25,19 +25,23 @@ export function addTodo(name: string, dueDate: Date): boolean {
     deleted: false,
   });
 
-  return true;
+  return todos[length - 1];
 }
 
 export function getTodos(): [Todo] {
   return todos;
 }
 
+export function getTodo(id: string): Todo | undefined {
+  return todos.find((todo) => todo.id === id);
+}
+
 export function updateTodo(
-  id: number,
+  id: string,
   name?: string,
   dueDate?: Date,
   completed?: boolean
-): boolean {
+): Todo | boolean {
   const todoIndex = todos.findIndex((t) => t.id === id);
   if (todoIndex === -1) {
     return false;
@@ -46,16 +50,17 @@ export function updateTodo(
   const todo = todos[todoIndex];
   todos[todoIndex] = {
     ...todo,
+    id,
     name: name ?? todo.name,
     dueDate: dueDate ?? todo.dueDate,
     completed: completed ?? todo.completed,
     updatedAt: new Date(),
   };
 
-  return true;
+  return todos[todoIndex];
 }
 
-export function deleteTodo(id: number): boolean {
+export function deleteTodo(id: string): boolean {
   const todoIndex = todos.findIndex((t) => t.id === id);
   if (todoIndex === -1) {
     return false;

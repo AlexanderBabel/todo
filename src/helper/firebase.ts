@@ -1,5 +1,7 @@
 import admin from 'firebase-admin';
-import { FirebaseTodo, FirebaseDatabaseTodo } from '../types/todo';
+import { DocumentSnapshot } from '@google-cloud/firestore';
+
+import { FirebaseTodo, FirebaseDatabaseTodo, Todo } from '../types/todo';
 import dayjs from 'dayjs';
 
 admin.initializeApp();
@@ -26,7 +28,7 @@ export async function updateTodo(
   name?: string,
   dueDate?: Date,
   completed?: boolean
-): Promise<boolean> {
+): Promise<boolean | FirebaseDatabaseTodo> {
   const doc = collection.doc(id);
   const todo = await doc.get();
   if (!todo.exists) {
@@ -69,4 +71,25 @@ export async function getTodos(): Promise<FirebaseTodo[]> {
       } as FirebaseTodo;
     })
   );
+}
+
+export async function getTodo(id: string): Promise<undefined | FirebaseTodo> {
+  const doc = collection.doc(id);
+  const todoRef = await doc.get();
+
+  if (!todoRef.exists) {
+    return undefined;
+  }
+
+  const todoData = await todoRef.data();
+
+  if (todoData === undefined) {
+    return undefined;
+  }
+
+  return {
+    id: todoRef.id,
+    ...todoData,
+    dueDate: todoData.dueDate ? (todoData.dueDate as admin.firestore.Timestamp).toDate() : null,
+  } as FirebaseTodo;
 }
