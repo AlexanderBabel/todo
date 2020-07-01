@@ -1,6 +1,7 @@
 import { FirebaseTodo } from '../../types/todo';
 import { Request, Response } from 'express';
 import { deleteTodo } from '../../helper/firebase';
+import { RequestParamsId } from '../../types/requestParamsId';
 
 /**
  * This route allows you to delete a Todo by it id.
@@ -8,22 +9,20 @@ import { deleteTodo } from '../../helper/firebase';
  * @param {DeleteTodo.model} id.body.required - The id of the Todo
  * @group firebase - Save Todos in Firestore database from Google's Firebase
  * @returns {string} 200 - Ok
- * @returns {Error}  400 - ID is missing.
- * @returns {Error}  500 - Could not find object.
+ * @returns {Error}  404 - Could not find object.
  * @security JWT
  */
-export default async (req: Request<never, unknown, FirebaseTodo>, res: Response): Promise<void> => {
-  const todo = req.body;
-  if (!todo.id) {
-    res.status(400).send('ID is missing.');
-    return;
-  }
+export default async (
+  req: Request<RequestParamsId, unknown, FirebaseTodo>,
+  res: Response
+): Promise<void> => {
+  const id = req.params.id;
 
-  const dbRes = await deleteTodo(todo.id);
+  const dbRes = await deleteTodo(id);
   if (dbRes) {
     res.send('Ok');
     return;
   }
 
-  res.status(500).send('Could not find object.');
+  res.status(404).send('Could not find object.');
 };

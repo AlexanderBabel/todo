@@ -1,6 +1,6 @@
-import { Todo } from '../types/todo';
 import { Request, Response } from 'express';
 import { deleteTodo } from '../helper/storage';
+import { RequestParamsId } from '../types/requestParamsId';
 
 /**
  * @typedef DeleteTodo
@@ -17,18 +17,17 @@ import { deleteTodo } from '../helper/storage';
  * @returns {Error}  500 - Could not find object.
  * @security JWT
  */
-export default async (req: Request<never, unknown, Todo>, res: Response): Promise<void> => {
-  const todo = req.body;
-  if (todo.id === undefined) {
-    res.status(400).send('ID is missing.');
-    return;
-  }
+export default async (
+  req: Request<RequestParamsId, unknown, never>,
+  res: Response
+): Promise<void> => {
+  const id = req.params.id;
 
-  const dbRes = await deleteTodo(todo.id);
+  const dbRes = await deleteTodo(id);
   if (dbRes) {
     res.send('Ok');
     return;
   }
 
-  res.status(500).send('Could not find object.');
+  res.status(404).send('Could not find object.');
 };
