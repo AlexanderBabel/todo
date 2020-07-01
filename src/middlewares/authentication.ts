@@ -2,6 +2,10 @@ import { Request, NextFunction, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 
 export default (req: Request, res: Response, next: NextFunction): void => {
+  if (req.path.match('/api-docs*')) {
+    return next();
+  }
+
   const { authorization } = req.headers;
   const { JWT_SECRET } = process.env;
   if (!JWT_SECRET) {

@@ -2,6 +2,9 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import expressSwaggerGenerator from 'express-swagger-generator';
 import 'dotenv/config';
 
 import authentication from './middlewares/authentication';
@@ -15,6 +18,7 @@ import getFirebaseTodos from './routes/firebase/getFirebaseTodos';
 import updateFirebaseTodo from './routes/firebase/updateFirebaseTodo';
 
 const app = express();
+const expressSwagger = expressSwaggerGenerator(app);
 
 // middlewares
 app.use(cors());
@@ -32,6 +36,31 @@ app.get('/firebase/todo', getFirebaseTodos);
 app.post('/firebase/todo', createFirebaseTodo);
 app.patch('/firebase/todo', updateFirebaseTodo);
 app.delete('/firebase/todo', deleteFirebaseTodo);
+
+const options = {
+  swaggerDefinition: {
+    info: {
+      description: 'Service Engineering Express Backend. This is a simple API which can manage Todos.',
+      title: 'SEEB',
+      version: '1.0.0',
+    },
+    host: 'seeb.alexbabel.com',
+    basePath: '/',
+    produces: ['application/json'],
+    schemes: ['https'],
+    securityDefinitions: {
+      JWT: {
+        type: 'apiKey',
+        in: 'header',
+        name: 'Authorization',
+        description: 'A JWT Key which is used to authenticate every request against the API.',
+      },
+    },
+  },
+  basedir: __dirname,
+  files: ['./routes/**/*.js'],
+};
+expressSwagger(options);
 
 app.listen(process.env.PORT ?? 4000, () => {
   console.log(`Started server on port ${process.env.PORT ?? 4000}`);

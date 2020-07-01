@@ -3,8 +3,28 @@ import { Request, Response } from 'express';
 import { updateTodo } from '../helper/storage';
 import dayjs from 'dayjs';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default (req: Request<any, unknown, Todo>, res: Response): void => {
+/**
+ * @typedef UpdateTodo
+ * @property {number} id.required - The id of the Todo. - eg: 1
+ * @property {string} name - The name of the Todo. - eg: Do Exercises
+ * @property {boolean} completed - Whether if the Todo has been completed or not. - eg: true
+ * @property {Date} dueDate - Optional. Date when the Todo is due. - eg: 2020-01-01T00:00:00.000Z
+ */
+
+/**
+ * This route allows you to update a existing Todo.
+ * @route PATCH /todo
+ * @param {UpdateTodo.model} todo.body.required - The Todo that should be updated
+ * @group local - Save Todos in memory of the server. A reset will happen after each restart of the server!
+ * @returns {string} 200 - Ok
+ * @returns {Error}  400 - ID is missing.
+ * @returns {Error}  400 - Name must be a string.
+ * @returns {Error}  400 - Invalid dueDate.
+ * @returns {Error}  400 - Completed must be a boolean.
+ * @returns {Error}  500 - Something went wrong during the saving process.
+ * @security JWT
+ */
+export default (req: Request<never, unknown, Todo>, res: Response): void => {
   const todo = req.body;
   if (!todo.id) {
     res.status(400).send('ID is missing.');

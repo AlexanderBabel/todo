@@ -2,9 +2,22 @@ import { Todo } from '../types/todo';
 import { Request, Response } from 'express';
 import { deleteTodo } from '../helper/storage';
 
-// TODO: implementation
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default async (req: Request<any, unknown, Todo>, res: Response): Promise<void> => {
+/**
+ * @typedef DeleteTodo
+ * @property {number} id.required - The id of the Todo. - eg: 1
+ */
+
+/**
+ * This route allows you to delete a Todo by it id.
+ * @route DELETE /todo
+ * @param {DeleteTodo.model} id.body.required - The id of the Todo
+ * @group local - Save Todos in memory of the server. A reset will happen after each restart of the server!
+ * @returns {string} 200 - Ok
+ * @returns {Error}  400 - ID is missing.
+ * @returns {Error}  500 - Could not find object.
+ * @security JWT
+ */
+export default async (req: Request<never, unknown, Todo>, res: Response): Promise<void> => {
   const todo = req.body;
   if (todo.id === undefined) {
     res.status(400).send('ID is missing.');
