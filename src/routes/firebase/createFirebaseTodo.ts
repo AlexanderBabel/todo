@@ -14,7 +14,7 @@ import dayjs from 'dayjs';
  * @route POST /firebase/todo
  * @param {FirebaseCreateTodo.model} todo.body.required - The Todo that should be saved.
  * @group firebase - Save Todos in Firestore database from Google's Firebase
- * @returns {string} 200 - Ok
+ * @returns {FirebaseTodo.model} 200 - The created Todo
  * @returns {Error}  400 - Name is missing.
  * @returns {Error}  400 - Name must be a string.
  * @returns {Error}  400 - Invalid dueDate.
