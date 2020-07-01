@@ -4,7 +4,7 @@ import { deleteTodo } from '../helper/storage';
 
 /**
  * @typedef DeleteTodo
- * @property {number} id.required - The id of the Todo. - eg: 1
+ * @property {string} id.required - The id of the Todo. - eg: 1
  */
 
 /**
