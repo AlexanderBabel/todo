@@ -17,6 +17,7 @@
     "dayjs": "^1.8.28",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-swagger-generator": "^1.1.17",
     "firebase-admin": "^8.13.0",
     "helmet": "^3.23.3",
     "jsonwebtoken": "^8.5.1"
@@ -31,7 +32,6 @@
     "eslint": "^7.3.1",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "express-swagger-generator": "^1.1.17",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
     "prettier-eslint": "^11.0.0",
