@@ -4,17 +4,11 @@ import { addTodo } from '../../helper/firebase';
 import dayjs from 'dayjs';
 
 /**
- * @typedef FirebaseCreateTodo
- * @property {string} name.required - The name of the Todo. - eg: Do Exercises
- * @property {string} dueDate - Optional. Date when the Todo is due. - eg: 2020-01-01T00:00:00.000Z
- */
-
-/**
  * This route allows you to create a new Todo.
  * @route POST /firebase/todo
- * @param {FirebaseCreateTodo.model} todo.body.required - The Todo that should be saved.
+ * @param {CreateTodo.model} todo.body.required - The Todo that should be saved.
  * @group firebase - Save Todos in Firestore database from Google's Firebase
- * @returns {FirebaseTodo.model} 200 - The created Todo
+ * @returns {Todo.model} 200 - The created Todo
  * @returns {Error}  400 - Name is missing.
  * @returns {Error}  400 - Name must be a string.
  * @returns {Error}  400 - Invalid dueDate.

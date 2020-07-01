@@ -6,7 +6,7 @@ import { RequestParamsId } from '../types/requestParamsId';
 
 /**
  * @typedef UpdateTodo
- * @property {number} id.required - The id of the Todo. - eg: 1
+ * @property {string} id.required - The id of the Todo. - eg: 1
  * @property {string} name - The name of the Todo. - eg: Do Exercises
  * @property {boolean} completed - Whether if the Todo has been completed or not. - eg: true
  * @property {Date} dueDate - Optional. Date when the Todo is due. - eg: 2020-01-01T00:00:00.000Z
