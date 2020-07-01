@@ -1,5 +1,6 @@
 import admin from 'firebase-admin';
 import { FirebaseTodo, FirebaseDatabaseTodo } from '../types/todo';
+import dayjs from 'dayjs';
 
 admin.initializeApp();
 const { fromDate } = admin.firestore.Timestamp;
@@ -9,7 +10,7 @@ export async function addTodo(name: string, dueDate?: Date): Promise<FirebaseTod
   const data = {
     name,
     completed: false,
-    dueDate: dueDate ? fromDate(dueDate) : null,
+    dueDate: dueDate ? fromDate(dayjs(dueDate).toDate()) : null,
   } as FirebaseDatabaseTodo;
 
   const res = await collection.add(data);
@@ -38,7 +39,7 @@ export async function updateTodo(
   }
 
   if (dueDate) {
-    updateObj.dueDate = fromDate(dueDate);
+    updateObj.dueDate = fromDate(dayjs(dueDate).toDate());
   }
 
   if (completed !== undefined) {
