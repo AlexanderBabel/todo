@@ -7,22 +7,16 @@ const todos: [Todo] = [
     name: 'SE Komplexübung 1',
     completed: false,
     dueDate: dayjs('01.08.2020').toDate(),
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    deleted: false,
   },
 ];
 let lastId = todos.length;
 
-export function addTodo(name: string, dueDate: Date): Todo {
+export function addTodo(name: string, dueDate?: Date): Todo {
   const length: number = todos.push({
     id: `${lastId++}`,
     name,
     dueDate,
     completed: false,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    deleted: false,
   });
 
   return todos[length - 1];
@@ -54,7 +48,6 @@ export function updateTodo(
     name: name ?? todo.name,
     dueDate: dueDate ?? todo.dueDate,
     completed: completed ?? todo.completed,
-    updatedAt: new Date(),
   };
 
   return todos[todoIndex];

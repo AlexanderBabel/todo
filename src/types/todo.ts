@@ -4,11 +4,7 @@ export interface Todo {
   id: string;
   name: string;
   completed: boolean;
-  dueDate: Date;
-
-  deleted: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  dueDate?: Date;
 }
 
 export interface FirebaseDatabaseTodo {

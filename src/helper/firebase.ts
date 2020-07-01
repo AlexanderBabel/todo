@@ -1,14 +1,13 @@
 import admin from 'firebase-admin';
-import { DocumentSnapshot } from '@google-cloud/firestore';
 
-import { FirebaseTodo, FirebaseDatabaseTodo, Todo } from '../types/todo';
+import { FirebaseDatabaseTodo, Todo } from '../types/todo';
 import dayjs from 'dayjs';
 
 admin.initializeApp();
 const { fromDate } = admin.firestore.Timestamp;
 export const collection = admin.firestore().collection('todos');
 
-export async function addTodo(name: string, dueDate?: Date): Promise<FirebaseTodo> {
+export async function addTodo(name: string, dueDate?: Date): Promise<Todo> {
   const data = {
     name,
     completed: false,
@@ -60,7 +59,7 @@ export async function deleteTodo(id: string): Promise<boolean> {
   return await doc.delete().then(() => true);
 }
 
-export async function getTodos(): Promise<FirebaseTodo[]> {
+export async function getTodos(): Promise<Todo[]> {
   return Promise.all(
     (await collection.get()).docs.map(async (d) => {
       const data = await d.data();
@@ -68,12 +67,12 @@ export async function getTodos(): Promise<FirebaseTodo[]> {
         id: d.id,
         ...data,
         dueDate: data.dueDate ? (data.dueDate as admin.firestore.Timestamp).toDate() : null,
-      } as FirebaseTodo;
+      } as Todo;
     })
   );
 }
 
-export async function getTodo(id: string): Promise<undefined | FirebaseTodo> {
+export async function getTodo(id: string): Promise<undefined | Todo> {
   const doc = collection.doc(id);
   const todoRef = await doc.get();
 
@@ -91,5 +90,5 @@ export async function getTodo(id: string): Promise<undefined | FirebaseTodo> {
     id: todoRef.id,
     ...todoData,
     dueDate: todoData.dueDate ? (todoData.dueDate as admin.firestore.Timestamp).toDate() : null,
-  } as FirebaseTodo;
+  } as Todo;
 }

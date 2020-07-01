@@ -7,7 +7,7 @@ import { RequestParamsId } from '../../types/requestParamsId';
  * This route allows you to retrieve all saved Todos.
  * @route GET /firebase/todo/:id
  * @group firebase - Save Todos in Firestore database from Google's Firebase
- * @returns {FirebaseTodo.model} 200 - An Todo.
+ * @returns {Todo.model} 200 - An Todo.
  * @returns {Error}  404 - Todo not found.
  * @security JWT
  */
