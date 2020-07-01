@@ -1,4 +1,4 @@
-import { FirebaseTodo } from '../../types/todo';
+import { Todo } from '../../types/todo';
 import { Request, Response } from 'express';
 import { deleteTodo } from '../../helper/firebase';
 import { RequestParamsId } from '../../types/requestParamsId';
@@ -18,7 +18,7 @@ import { RequestParamsId } from '../../types/requestParamsId';
  * @security JWT
  */
 export default async (
-  req: Request<RequestParamsId, unknown, FirebaseTodo>,
+  req: Request<RequestParamsId, unknown, Todo>,
   res: Response
 ): Promise<void> => {
   const id = req.params.id;

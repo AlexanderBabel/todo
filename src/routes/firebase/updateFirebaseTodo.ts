@@ -1,4 +1,4 @@
-import { FirebaseTodo } from '../../types/todo';
+import { Todo } from '../../types/todo';
 import { Request, Response } from 'express';
 import { updateTodo } from '../../helper/firebase';
 import dayjs from 'dayjs';
@@ -26,7 +26,7 @@ import { RequestParamsId } from '../../types/requestParamsId';
  * @security JWT
  */
 export default async (
-  req: Request<RequestParamsId, unknown, FirebaseTodo>,
+  req: Request<RequestParamsId, unknown, Todo>,
   res: Response
 ): Promise<void> => {
   const id = req.params.id;

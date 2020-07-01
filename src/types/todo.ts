@@ -11,13 +11,6 @@ export interface Todo {
   updatedAt: Date;
 }
 
-export interface FirebaseTodo {
-  id: string;
-  name: string;
-  completed: boolean;
-  dueDate?: Date;
-}
-
 export interface FirebaseDatabaseTodo {
   id: string;
   name: string;

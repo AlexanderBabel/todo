@@ -1,4 +1,4 @@
-import { FirebaseTodo } from '../../types/todo';
+import { Todo } from '../../types/todo';
 import { Request, Response } from 'express';
 import { addTodo } from '../../helper/firebase';
 import dayjs from 'dayjs';
@@ -21,7 +21,7 @@ import dayjs from 'dayjs';
  * @returns {Error}  500 - Something went wrong during the saving process.
  * @security JWT
  */
-export default async (req: Request<never, unknown, FirebaseTodo>, res: Response): Promise<void> => {
+export default async (req: Request<never, unknown, Todo>, res: Response): Promise<void> => {
   const todo = req.body;
   if (!todo.name) {
     res.status(400).send('Name is missing.');
