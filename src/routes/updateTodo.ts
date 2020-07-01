@@ -17,7 +17,7 @@ import { RequestParamsId } from '../types/requestParamsId';
  * @route PATCH /todo
  * @param {UpdateTodo.model} todo.body.required - The Todo that should be updated
  * @group local - Save Todos in memory of the server. A reset will happen after each restart of the server!
- * @returns {Todo} 200 - Ok
+ * @returns {Todo.model} 200 - Ok
  * @returns {Error}  400 - ID is missing.
  * @returns {Error}  400 - Name must be a string.
  * @returns {Error}  400 - Invalid dueDate.
