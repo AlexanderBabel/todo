@@ -18,9 +18,12 @@ import getFirebaseTodos from './routes/firebase/getFirebaseTodos';
 import updateFirebaseTodo from './routes/firebase/updateFirebaseTodo';
 import getTodo from './routes/getTodo';
 import getFirebaseTodo from './routes/firebase/getFirebaseTodo';
+import graphql from './graphql';
 
 const app = express();
 const expressSwagger = expressSwaggerGenerator(app);
+
+graphql(app);
 
 // middlewares
 app.use(cors());
