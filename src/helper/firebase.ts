@@ -1,15 +1,17 @@
 import admin from 'firebase-admin';
 
-import { FirebaseDatabaseTodo, Todo } from '../types/todo';
+import { FirebaseDatabaseTodo } from '../types/todo';
 import dayjs from 'dayjs';
+import { Todo } from '../graphql/typeDefs/Todo';
 
 admin.initializeApp();
 const { fromDate } = admin.firestore.Timestamp;
 export const collection = admin.firestore().collection('todos');
 
-export async function addTodo(name: string, dueDate?: Date): Promise<Todo> {
+export async function addTodo(user: string, name: string, dueDate?: Date): Promise<Todo> {
   const data = {
     name,
+    user,
     completed: false,
     dueDate: dueDate ? fromDate(dayjs(dueDate).toDate()) : null,
   } as FirebaseDatabaseTodo;
@@ -24,13 +26,19 @@ export async function addTodo(name: string, dueDate?: Date): Promise<Todo> {
 
 export async function updateTodo(
   id: string,
+  user: string,
   name?: string,
   dueDate?: Date,
   completed?: boolean
-): Promise<boolean | FirebaseDatabaseTodo> {
+): Promise<boolean> {
   const doc = collection.doc(id);
   const todo = await doc.get();
   if (!todo.exists) {
+    return false;
+  }
+
+  const todoData = todo.data() as FirebaseDatabaseTodo | undefined;
+  if (todoData === undefined || todoData.user !== user) {
     return false;
   }
 
@@ -53,36 +61,41 @@ export async function updateTodo(
     .catch(() => false);
 }
 
-export async function deleteTodo(id: string): Promise<boolean> {
+export async function deleteTodo(id: string, user: string): Promise<boolean> {
   const doc = collection.doc(id);
+  const todoRef = await doc.get();
+  if (!todoRef.exists) {
+    return false;
+  }
+
+  const todoData = todoRef.data() as FirebaseDatabaseTodo | undefined;
+  if (todoData === undefined || todoData.user !== user) {
+    return false;
+  }
 
   return await doc.delete().then(() => true);
 }
 
-export async function getTodos(): Promise<Todo[]> {
-  return Promise.all(
-    (await collection.get()).docs.map(async (d) => {
-      const data = await d.data();
-      return {
-        id: d.id,
-        ...data,
-        dueDate: data.dueDate ? (data.dueDate as admin.firestore.Timestamp).toDate() : null,
-      } as Todo;
-    })
-  );
+export async function getTodos(user: string): Promise<Todo[]> {
+  return (await collection.where('user', '==', user).get()).docs.map((d) => {
+    const data = d.data() as FirebaseDatabaseTodo;
+    return {
+      id: d.id,
+      ...data,
+      dueDate: data.dueDate ? (data.dueDate as admin.firestore.Timestamp).toDate() : null,
+    } as Todo;
+  });
 }
 
-export async function getTodo(id: string): Promise<undefined | Todo> {
+export async function getTodo(id: string, user: string): Promise<undefined | Todo> {
   const doc = collection.doc(id);
   const todoRef = await doc.get();
-
   if (!todoRef.exists) {
     return undefined;
   }
 
-  const todoData = await todoRef.data();
-
-  if (todoData === undefined) {
+  const todoData = todoRef.data() as FirebaseDatabaseTodo | undefined;
+  if (todoData === undefined || todoData.user !== user) {
     return undefined;
   }
 

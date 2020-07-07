@@ -1,4 +1,4 @@
-import { Todo } from '../../types/todo';
+import { Todo } from '../../graphql/typeDefs/Todo';
 import { Request, Response } from 'express';
 import { getTodo } from '../../helper/firebase';
 import { RequestParamsId } from '../../types/requestParamsId';
@@ -15,7 +15,7 @@ export default async (
   req: Request<RequestParamsId, unknown, Todo>,
   res: Response
 ): Promise<void> => {
-  const dbRes = await getTodo(req.params.id);
+  const dbRes = await getTodo(req.params.id, req.context.user);
   if (dbRes) {
     res.send(dbRes);
     return;

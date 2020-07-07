@@ -1,4 +1,4 @@
-import { Todo } from '../types/todo';
+import { Todo } from '../graphql/typeDefs/Todo';
 import { Request, Response } from 'express';
 import { addTodo } from '../helper/storage';
 import dayjs from 'dayjs';

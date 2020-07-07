@@ -1,4 +1,4 @@
-import { Todo } from '../../types/todo';
+import { Todo } from '../../graphql/typeDefs/Todo';
 import { Request, Response } from 'express';
 import { getTodos } from '../../helper/firebase';
 
@@ -11,7 +11,7 @@ import { getTodos } from '../../helper/firebase';
  * @security JWT
  */
 export default async (req: Request<never, unknown, Todo>, res: Response): Promise<void> => {
-  const dbRes = await getTodos();
+  const dbRes = await getTodos(req.context.user);
   if (dbRes) {
     res.send(dbRes);
     return;

@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { Todo } from '../types/todo';
+import { Todo } from '../graphql/typeDefs/Todo';
 
 const todos: [Todo] = [
   {

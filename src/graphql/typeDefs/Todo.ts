@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID } from 'type-graphql';
+import { ObjectType, Field, ID, InputType } from 'type-graphql';
 
 @ObjectType({ description: 'A Todo object' })
 export class Todo {
@@ -12,5 +12,5 @@ export class Todo {
   completed: boolean;
 
   @Field({ nullable: true, defaultValue: undefined, description: 'Date when the Todo is due.' })
-  dueDate: Date;
+  dueDate?: Date;
 }

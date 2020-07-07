@@ -1,4 +1,4 @@
-import { Todo } from '../../types/todo';
+import { Todo } from '../../graphql/typeDefs/Todo';
 import { Request, Response } from 'express';
 import { updateTodo } from '../../helper/firebase';
 import dayjs from 'dayjs';
@@ -39,7 +39,7 @@ export default async (
     return;
   }
 
-  const dbRes = await updateTodo(id, todo.name, todo.dueDate, todo.completed);
+  const dbRes = await updateTodo(id, req.context.user, todo.name, todo.dueDate, todo.completed);
   if (dbRes) {
     res.send(dbRes);
     return;

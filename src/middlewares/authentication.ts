@@ -1,8 +1,23 @@
 import { Request, NextFunction, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 
+const allowedRoutes = ['/api-docs*', '/token'];
+
+export type Context = {
+  user: string;
+};
+
+declare global {
+  namespace Express {
+    interface Request {
+      context: Context;
+    }
+  }
+}
+
 export default (req: Request, res: Response, next: NextFunction): void => {
-  if (req.path.match('/api-docs*')) {
+  const isGraphQL = req.path.match('/graphql');
+  if (allowedRoutes.find((r) => req.path.match(r))) {
     return next();
   }
 
@@ -14,15 +29,24 @@ export default (req: Request, res: Response, next: NextFunction): void => {
   }
 
   if (!authorization) {
+    if (isGraphQL) {
+      return next();
+    }
+
     res.status(401).send('Not Authenticated');
     return;
   }
 
   try {
-    verify(authorization.replace('Bearer ', ''), JWT_SECRET);
+    const decoded = verify(authorization.replace('Bearer ', ''), JWT_SECRET) as { user: string };
+    if (typeof decoded === 'object' && decoded.user) {
+      req.context = { user: decoded.user };
+    }
   } catch (err) {
-    res.status(401).send('Not Authenticated');
-    return;
+    if (!isGraphQL) {
+      res.status(401).send('Not Authenticated');
+      return;
+    }
   }
 
   return next();

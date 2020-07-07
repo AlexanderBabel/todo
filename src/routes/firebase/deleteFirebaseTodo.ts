@@ -1,4 +1,4 @@
-import { Todo } from '../../types/todo';
+import { Todo } from '../../graphql/typeDefs/Todo';
 import { Request, Response } from 'express';
 import { deleteTodo } from '../../helper/firebase';
 import { RequestParamsId } from '../../types/requestParamsId';
@@ -18,7 +18,7 @@ export default async (
 ): Promise<void> => {
   const id = req.params.id;
 
-  const dbRes = await deleteTodo(id);
+  const dbRes = await deleteTodo(id, req.context.user);
   if (dbRes) {
     res.send('Ok');
     return;

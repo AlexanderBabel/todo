@@ -19,11 +19,10 @@ import updateFirebaseTodo from './routes/firebase/updateFirebaseTodo';
 import getTodo from './routes/getTodo';
 import getFirebaseTodo from './routes/firebase/getFirebaseTodo';
 import graphql from './graphql';
+import getToken from './routes/getToken';
 
 const app = express();
 const expressSwagger = expressSwaggerGenerator(app);
-
-graphql(app);
 
 // middlewares
 app.use(cors());
@@ -31,7 +30,11 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(authentication);
 
+graphql(app);
+
 // routes
+app.get('/token', getToken);
+
 app.get('/todo', getTodos);
 app.get('/todo/:id', getTodo);
 app.post('/todo', createTodo);
