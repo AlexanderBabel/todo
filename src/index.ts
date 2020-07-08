@@ -33,6 +33,18 @@ app.use(authentication);
 graphql(app);
 
 // routes
+app.get('/', (req, res) => {
+  res.send(`
+<center style= "margin-top: 10%;">
+  <h1>Simple Todo Manager API</h1><br />
+  <p>This API exposes a REST endpoint and a GraphQL endpoint. You can access the REST endpoint documentation under:</p>
+  <a href="/api-docs">Swagger UI</a>
+  <p>If you want to interact with the GraphQL endpoint, please use the following documentation:</p>
+  <a href="/graphql">GraphQL Playground</a>
+
+  <p style="margin-top: 20%;">&copy; ${new Date().getFullYear()} Alexander Babel, Jonas Embach</p>
+</center>`);
+});
 app.get('/token', getToken);
 
 app.get('/todo', getTodos);
@@ -51,11 +63,11 @@ const options = {
   swaggerDefinition: {
     info: {
       description:
-        'Service Engineering Express Backend. This is a simple API which can manage Todos.',
-      title: 'SEEB',
+        'This is a simple API which can manage Todos. Supports REST and GraphQL. You can find the GraphQL documentation under: https://todo.alexbabel.com/graphql',
+      title: 'Simple Todo Manager',
       version: '1.0.0',
     },
-    host: 'seeb.alexbabel.com',
+    host: 'todo.alexbabel.com',
     basePath: '/',
     produces: ['application/json'],
     schemes: ['https'],
@@ -70,6 +82,10 @@ const options = {
   },
   basedir: __dirname,
   files: ['./routes/**/*.js'],
+  route: {
+    url: '/api-docs',
+    docs: '/api-docs.json',
+  },
 };
 expressSwagger(options);
 

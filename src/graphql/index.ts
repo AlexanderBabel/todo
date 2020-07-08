@@ -5,10 +5,11 @@ import { TodoResolver } from './resolvers/TodoResolver';
 import { buildSchema, Ctx } from 'type-graphql';
 import { authChecker } from './authChecker';
 import { GraphQLSchema } from 'graphql';
+import { TokenResolver } from './resolvers/TokenResolver';
 
 export function getSchema(): Promise<GraphQLSchema> {
   return buildSchema({
-    resolvers: [TodoResolver],
+    resolvers: [TokenResolver, TodoResolver],
     authChecker,
   });
 }
