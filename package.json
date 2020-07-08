@@ -6,8 +6,10 @@
   "main": "index.js",
   "scripts": {
     "eslint": "eslint .",
-    "build": "rm -rf dist && tsc",
-    "start": "yarn build && node dist/index.js"
+    "build:web": "cd web && yarn build",
+    "build:backend": "rm -rf dist && tsc",
+    "build": "yarn build:web && yarn && yarn build:backend",
+    "start": "yarn build:backend && node dist/index.js"
   },
   "author": "",
   "license": "ISC",

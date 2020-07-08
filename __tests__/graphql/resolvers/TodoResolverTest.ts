@@ -1,6 +1,5 @@
 import { GraphQLSchema, graphql } from 'graphql';
 import { getSchema } from '../../../src/graphql';
-import { gql } from 'apollo-server-express';
 import { Context } from '../../../src/middlewares/authentication';
 import * as firebase from '../../../src/helper/firebase';
 import { mocked } from 'ts-jest/utils';

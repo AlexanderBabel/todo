@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
+import path from 'path';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import expressSwaggerGenerator from 'express-swagger-generator';
@@ -27,24 +28,18 @@ const expressSwagger = expressSwaggerGenerator(app);
 // middlewares
 app.use(cors());
 app.use(helmet());
+
+app.use(express.static(__dirname + '/../web/build'));
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname + '/../web/build/index.html'));
+});
+
 app.use(bodyParser.json());
 app.use(authentication);
 
 graphql(app);
 
 // routes
-app.get('/', (req, res) => {
-  res.send(`
-<center style= "margin-top: 10%;">
-  <h1>Simple Todo Manager API</h1><br />
-  <p>This API exposes a REST endpoint and a GraphQL endpoint. You can access the REST endpoint documentation under:</p>
-  <a href="/api-docs">Swagger UI</a>
-  <p>If you want to interact with the GraphQL endpoint, please use the following documentation:</p>
-  <a href="/graphql">GraphQL Playground</a>
-
-  <p style="margin-top: 20%;">&copy; ${new Date().getFullYear()} Alexander Babel, Jonas Embach</p>
-</center>`);
-});
 app.get('/token', getToken);
 
 app.get('/todo', getTodos);
