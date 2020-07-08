@@ -17,6 +17,8 @@ export default async function (app: Express): Promise<void> {
   const server = new ApolloServer({
     schema: await getSchema(),
     context: (ctx) => ctx.req.context,
+    playground: true,
+    introspection: true,
   });
 
   server.applyMiddleware({ app });
