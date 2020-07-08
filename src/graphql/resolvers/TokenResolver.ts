@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
-import { Query } from 'type-graphql';
+import { Mutation } from 'type-graphql';
 
 export class TokenResolver {
-  @Query((returns) => String, {
+  @Mutation((returns) => String, {
     description: 'Generates a token which can be used to execute requests against this API',
   })
   generateToken(): string {
