@@ -6,9 +6,9 @@
   "main": "index.js",
   "scripts": {
     "eslint": "eslint .",
-    "build:web": "cd web && yarn build",
+    "build:web": "cd web && yarn && yarn build",
     "build:backend": "rm -rf dist && tsc",
-    "build": "yarn build:web && yarn && yarn build:backend",
+    "build": "yarn build:web && yarn build:backend",
     "start": "yarn build:backend && node dist/index.js"
   },
   "author": "",
