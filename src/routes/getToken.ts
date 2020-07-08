@@ -3,8 +3,8 @@ import jwt from 'jsonwebtoken';
 
 /**
  * This route allows you to create a token that you can use in order to interact with this API
- * @route GET /getToken
- * @group getToken - Create a Token in order to use the API
+ * @route GET /token
+ * @group token - Create a Token which can be used for all other API calls
  * @returns {string} 200 - A JWT token.
  * @returns {Error}  500 - Something went wrong during the creation process.
  */
