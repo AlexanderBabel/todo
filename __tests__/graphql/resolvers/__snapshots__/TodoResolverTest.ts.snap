@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test of TodoResolver Test of "createTodo" mutation with dueDate 1`] = `
+Object {
+  "data": Object {
+    "createTodo": Object {
+      "completed": true,
+      "dueDate": "2020-01-01T00:00:00.000Z",
+      "id": "hr848rh",
+      "name": "Todo #2",
+    },
+  },
+}
+`;
+
+exports[`Test of TodoResolver Test of "createTodo" mutation with dueDate 2`] = `
+Array [
+  "JEST_TEST",
+  "Test #2",
+  2020-01-01T00:00:00.000Z,
+]
+`;
+
+exports[`Test of TodoResolver Test of "createTodo" mutation without dueDate 1`] = `
+Object {
+  "data": Object {
+    "createTodo": Object {
+      "completed": true,
+      "dueDate": "2020-01-01T00:00:00.000Z",
+      "id": "hr848rh",
+      "name": "Todo #2",
+    },
+  },
+}
+`;
+
+exports[`Test of TodoResolver Test of "createTodo" mutation without dueDate 2`] = `
+Array [
+  "JEST_TEST",
+  "Test #2",
+  undefined,
+]
+`;
+
+exports[`Test of TodoResolver Test of "todo" query 1`] = `
+Object {
+  "data": Object {
+    "todo": Object {
+      "completed": false,
+      "dueDate": null,
+      "id": "we121ew",
+      "name": "Test Todo",
+    },
+  },
+}
+`;
+
+exports[`Test of TodoResolver Test of "todo" query 2`] = `
+Array [
+  "we121ew",
+  "JEST_TEST",
+]
+`;
+
+exports[`Test of TodoResolver Test of "todo" query with no result 1`] = `
+Object {
+  "data": null,
+  "errors": Array [
+    [GraphQLError: Cannot return null for non-nullable field Query.todo.],
+  ],
+}
+`;
+
+exports[`Test of TodoResolver Test of "todo" query with no result 2`] = `
+Array [
+  "we121ew",
+  "JEST_TEST",
+]
+`;
+
+exports[`Test of TodoResolver Test of "todos" query 1`] = `
+Object {
+  "data": Object {
+    "todos": Array [
+      Object {
+        "completed": false,
+        "dueDate": null,
+        "id": "we121ew",
+        "name": "Test Todo",
+      },
+      Object {
+        "completed": true,
+        "dueDate": "2020-01-01T00:00:00.000Z",
+        "id": "hr848rh",
+        "name": "Todo #2",
+      },
+    ],
+  },
+}
+`;
+
+exports[`Test of TodoResolver Test of "todos" query 2`] = `
+Array [
+  "JEST_TEST",
+]
+`;

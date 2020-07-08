@@ -2,7 +2,7 @@ import { Todo } from '../typeDefs/Todo';
 import { TodoInput } from '../typeDefs/TodoInput';
 import { Resolver, Query, Ctx, Mutation, Arg, ID, Authorized } from 'type-graphql';
 import { Context } from '../../middlewares/authentication';
-import { getTodos, addTodo, updateTodo, deleteTodo } from '../../helper/firebase';
+import { getTodos, addTodo, updateTodo, deleteTodo, getTodo } from '../../helper/firebase';
 
 @Resolver((of) => Todo)
 export class TodoResolver {
@@ -10,6 +10,15 @@ export class TodoResolver {
   @Query((returns) => [Todo], { description: 'Resturns all available Todos' })
   todos(@Ctx() ctx: Context): Promise<Todo[]> {
     return getTodos(ctx.user);
+  }
+
+  @Authorized()
+  @Query((returns) => Todo, { description: 'Resturns a Todo for a given ID' })
+  todo(
+    @Arg('id', (is) => ID, { description: 'The ID of the Todo you want to retrieve.' }) id: string,
+    @Ctx() ctx: Context
+  ): Promise<Todo | undefined> {
+    return getTodo(id, ctx.user);
   }
 
   @Authorized()
@@ -35,7 +44,7 @@ export class TodoResolver {
   @Authorized()
   @Mutation((returns) => Boolean, { description: 'Delete an exisiting Todo' })
   deleteTodo(
-    @Arg('id', (returns) => ID, { description: 'The ID of the Todo you want to delete.' })
+    @Arg('id', (is) => ID, { description: 'The ID of the Todo you want to delete.' })
     id: string,
     @Ctx() ctx: Context
   ): Promise<boolean> {
