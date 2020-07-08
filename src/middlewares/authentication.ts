@@ -1,7 +1,7 @@
 import { Request, NextFunction, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 
-const allowedRoutes = ['/', '/api-docs*', '/token'];
+const allowedRoutes = ['^/$', '^/api-docs*', '^/token$'];
 
 export type Context = {
   user: string;
