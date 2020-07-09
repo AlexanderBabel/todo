@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID, InputType } from 'type-graphql';
+import { Field, ID, InputType } from 'type-graphql';
 
 @InputType({ description: 'A Todo object that should be processed by the API' })
 export class TodoInput {

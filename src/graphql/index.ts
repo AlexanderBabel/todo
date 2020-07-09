@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { Express } from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { TodoResolver } from './resolvers/TodoResolver';
-import { buildSchema, Ctx } from 'type-graphql';
+import { buildSchema } from 'type-graphql';
 import { authChecker } from './authChecker';
 import { GraphQLSchema } from 'graphql';
 import { TokenResolver } from './resolvers/TokenResolver';

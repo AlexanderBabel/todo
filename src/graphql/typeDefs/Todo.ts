@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID, InputType } from 'type-graphql';
+import { ObjectType, Field, ID } from 'type-graphql';
 
 @ObjectType({ description: 'A Todo object' })
 export class Todo {

@@ -7,13 +7,13 @@ import { getTodos, addTodo, updateTodo, deleteTodo, getTodo } from '../../helper
 @Resolver((of) => Todo)
 export class TodoResolver {
   @Authorized()
-  @Query((returns) => [Todo], { description: 'Resturns all available Todos' })
+  @Query((returns) => [Todo], { description: 'Returns all available Todos' })
   todos(@Ctx() ctx: Context): Promise<Todo[]> {
     return getTodos(ctx.user);
   }
 
   @Authorized()
-  @Query((returns) => Todo, { description: 'Resturns a Todo for a given ID' })
+  @Query((returns) => Todo, { description: 'Returns a Todo for a given ID' })
   todo(
     @Arg('id', (is) => ID, { description: 'The ID of the Todo you want to retrieve.' }) id: string,
     @Ctx() ctx: Context
@@ -33,7 +33,7 @@ export class TodoResolver {
   }
 
   @Authorized()
-  @Mutation((returns) => Boolean, { description: 'Update an exisiting Todo' })
+  @Mutation((returns) => Boolean, { description: 'Update an existing Todo' })
   updateTodo(
     @Arg('data', { description: 'The data of the updated Todo' }) data: TodoInput,
     @Ctx() ctx: Context
@@ -42,7 +42,7 @@ export class TodoResolver {
   }
 
   @Authorized()
-  @Mutation((returns) => Boolean, { description: 'Delete an exisiting Todo' })
+  @Mutation((returns) => Boolean, { description: 'Delete an existing Todo' })
   deleteTodo(
     @Arg('id', (is) => ID, { description: 'The ID of the Todo you want to delete.' })
     id: string,
