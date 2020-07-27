@@ -9,7 +9,8 @@
     "build:web": "cd web && yarn && yarn build",
     "build:backend": "rm -rf dist && tsc",
     "build": "yarn build:web && yarn build:backend",
-    "start": "yarn build:backend && node dist/index.js"
+    "start": "yarn build:backend && node dist/index.js",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
