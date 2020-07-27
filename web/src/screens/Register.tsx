@@ -7,6 +7,7 @@ import {
   GenerateTokenMutation,
   GenerateTokenMutationVariables,
 } from "../gql/mutations";
+import { Footer } from "../components/Footer";
 
 function Register() {
   const { setAccount } = useContext(AccountContext);
@@ -27,8 +28,8 @@ function Register() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen min-w-screen">
-      <div className="mx-auto w-1/4 bg-white shadow-md p-8">
+    <div className="flex justify-center items-center min-h-screen min-w-screen p-8">
+      <div className="mx-auto lg:w-1/3 md:w-1/2 sm:w-3/4 bg-white shadow-md p-8">
         <p className="pb-6 text-center font-bold text-4xl">Planner</p>
         <p className="text-gray-700 pb-6 text-center">
           Verwalte schnell und einfach deine Aufgaben und spare damit 20% deiner
@@ -42,6 +43,7 @@ function Register() {
         <Button onClick={onCreateAccount} className="w-full" disabled={loading}>
           {loading ? "Warte noch kurz..." : "Jetzt Aufgaben erstellen"}
         </Button>
+        <Footer />
       </div>
     </div>
   );
