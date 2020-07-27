@@ -12,6 +12,7 @@ RUN yarn && yarn build
 FROM node:14-alpine
 WORKDIR /app
 COPY --from=build /usr/src/app/dist /app/dist
+COPY --from=build /usr/src/app/web/build /app/web/build
 COPY --from=build /usr/src/app/prod_node_modules /app/node_modules
 EXPOSE 80
 CMD ["node", "dist/index.js"]
