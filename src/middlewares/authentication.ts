@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 import { Request, NextFunction, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 
