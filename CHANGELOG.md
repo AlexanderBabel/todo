@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/AlexanderBabel/todo/compare/v1.0.0...v1.0.1) (2020-07-27)
+
+
+### Bug Fixes
+
+* **Dockerfile:** add web/build to prod image ([af0b469](https://github.com/AlexanderBabel/todo/commit/af0b4694daeb33b69b7896a2dee5dceafd8a1ed5))
+
 # 1.0.0 (2020-07-27)
 
 
