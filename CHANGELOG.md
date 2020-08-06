@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/AlexanderBabel/todo/compare/v1.0.1...v1.1.0) (2020-08-06)
+
+
+### Features
+
+* **ci:** update release workflow ([043a227](https://github.com/AlexanderBabel/todo/commit/043a227ae4ff084bf55ae2b56d95b964443f4215))
+
 ## [1.0.1](https://github.com/AlexanderBabel/todo/compare/v1.0.0...v1.0.1) (2020-07-27)
 
 
