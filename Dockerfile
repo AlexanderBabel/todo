@@ -16,3 +16,5 @@ COPY --from=build /usr/src/app/web/build /app/web/build
 COPY --from=build /usr/src/app/prod_node_modules /app/node_modules
 EXPOSE 80
 CMD ["node", "dist/index.js"]
+
+LABEL org.opencontainers.image.source="https://github.com/alexanderbabel/todo/"

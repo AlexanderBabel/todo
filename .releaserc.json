@@ -3,17 +3,11 @@
   "verifyConditions": [
     "@semantic-release/changelog",
     "@semantic-release/git",
-    {
-      "path": "semantic-release-docker",
-      "registryUrl": "docker.pkg.github.com"
-    }
+    "@alexbabel/semantic-release-docker"
   ],
   "prepare": [
     "@semantic-release/changelog",
-    {
-      "path": "@semantic-release/exec",
-      "cmd": "docker build -t docker.pkg.github.com/alexanderbabel/todo/todo ."
-    },
+    "@alexbabel/semantic-release-docker",
     {
       "path": "@semantic-release/git",
       "assets": ["CHANGELOG.md", "package.json", "yarn.lock"]
@@ -23,11 +17,6 @@
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     "@semantic-release/github",
-    [
-      "semantic-release-docker",
-      {
-        "name": "docker.pkg.github.com/alexanderbabel/todo/todo"
-      }
-    ]
+    "@alexbabel/semantic-release-docker"
   ]
 }
