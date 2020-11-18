@@ -49,7 +49,7 @@
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
     "prettier-eslint": "^11.0.0",
-    "semantic-release": "^17.1.1",
+    "semantic-release": "^17.2.3",
     "ts-jest": "^26.1.1",
     "typescript": "^3.9.6"
   },
